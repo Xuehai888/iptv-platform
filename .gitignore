@@ -1,0 +1,20 @@
+# 备份文件
+*.bak*
+*.bak_*
+
+# Python
+__pycache__/
+*.pyc
+
+# 数据文件（脚本自动生成，不入库）
+m3u/
+txt/
+logs/
+reports/
+*.m3u
+*.m3u8
+*.txt
+
+# 临时
+*.log
+*.tmp

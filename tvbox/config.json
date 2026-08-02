@@ -1,0 +1,132 @@
+{
+  "spider": "https://gh-proxy.com/https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar",
+  "wallpaper": "https://picsum.photos/1280/720/?blur=10",
+  "sites": [
+    {
+      "key": "drpy_js_豆瓣",
+      "name": "🎬 豆瓣推荐",
+      "type": 3,
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/FongMi/CatVodSpider/main/js/drpy2.min.js",
+      "ext": "https://gh-proxy.com/https://raw.githubusercontent.com/FongMi/CatVodSpider/main/js/豆瓣.js"
+    },
+    {
+      "key": "csp_BuLei",
+      "name": "🎬 布雷蓝光",
+      "type": 3,
+      "api": "csp_BuLei",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "csp_WoGG",
+      "name": "🎬 玩偶哥哥",
+      "type": 3,
+      "api": "csp_WoGG",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    }
+  ],
+  "lives": [
+    {
+      "name": "📺 中文直播（565频道）",
+      "type": 0,
+      "url": "http://207.246.102.108/m3u/cn.m3u",
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 CCTV央视（228频道）",
+      "type": 0,
+      "url": "http://207.246.102.108/m3u/cctv.m3u",
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 卫视频道（217频道）",
+      "type": 0,
+      "url": "http://207.246.102.108/m3u/weishi.m3u",
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "🌍 全球频道（15000+）",
+      "type": 0,
+      "url": "http://207.246.102.108/m3u/all.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml"
+    },
+    {
+      "name": "📺 ChinaIPTV自动更新",
+      "type": 0,
+      "url": "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/main/cnTV_AutoUpdate.m3u8",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 Kimentanm源",
+      "type": 0,
+      "url": "https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 范明明IPv6",
+      "type": 0,
+      "url": "https://live.fanmingming.cn/tv/m3u/ipv6.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 BurningC4源",
+      "type": 0,
+      "url": "https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 zwc456baby源",
+      "type": 0,
+      "url": "https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 ibert IPv6",
+      "type": 0,
+      "url": "https://m3u.ibert.me/fmml_ipv6.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 vbskycn IPv6",
+      "type": 0,
+      "url": "https://live.zbds.org/tv/iptv6.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 IPTV总部(世界杯)",
+      "type": 0,
+      "url": "http://82.156.243.185:33389/fwc.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "📺 Guovin IPv6",
+      "type": 0,
+      "url": "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv6/result.m3u",
+      "epg": "https://epg.112114.xyz/pp.xml",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    }
+  ],
+  "rules": [
+    {
+      "name": "proxy",
+      "hosts": [
+        "raw.githubusercontent.com",
+        "github.com"
+      ]
+    }
+  ]
+}
