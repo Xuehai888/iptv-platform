@@ -282,21 +282,40 @@ def parse_txt(content):
     return channels
 
 
-def validate_channel(channel):
+def is_video_content(head, content_type):
+    """判断响应内容是否为视频流，排除HTML假200"""
+    ct = (content_type or "").lower()
+    if any(k in ct for k in ("mpegurl", "m3u8", "mp4", "video", "octet-stream",
+                             "x-msvideo", "quicktime", "x-matroska", "x-flv",
+                             "mpeg", "x-mpegts", "vnd.apple")):
+        return True
+    if head.startswith(b"#EXTM3U"):
+        return True
+    if head.startswith((b"\x1a\x45\xdf\xa3", b"ID3", b"ftyp", b"\x47")):
+        return True
+    low = head[:1024].lstrip().lower()
+    if low.startswith(b"<!doctype") or low.startswith(b"<html") or b"<title>" in low:
+        return False  # HTML 页面
+    return True  # 未知类型保守保留
+
+
+def validate_channel(channel, strict=True):
     url = channel.get("url", "")
     if not url:
         return False
     try:
         req = Request(url, method="HEAD", headers={"User-Agent": "VLC/3.0"})
         with urlopen(req, timeout=TIMEOUT) as resp:
-            return resp.status in (200, 301, 302)
-    except:
-        try:
-            req = Request(url, headers={"User-Agent": "VLC/3.0", "Range": "bytes=0-1024"})
-            with urlopen(req, timeout=TIMEOUT) as resp:
-                return resp.status in (200, 206, 301, 302)
-        except:
-            return False
+            if resp.status not in (200, 301, 302):
+                return False
+        if not strict:
+            return True
+        req2 = Request(url, headers={"User-Agent": "VLC/3.0", "Range": "bytes=0-1023"})
+        with urlopen(req2, timeout=TIMEOUT) as resp2:
+            head = resp2.read(1024)
+            return is_video_content(head, resp2.headers.get("Content-Type", ""))
+    except Exception:
+        return False
 
 
 def generate_m3u(channels, title="IPTV"):
@@ -486,7 +505,7 @@ def main():
     log.info(f"Validating {len(untrusted_cn)} Chinese channels (skip {len(trusted_cn)} trusted)...")
     valid_cn = list(trusted_cn)  # trusted 全部保留
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-        futures = {pool.submit(validate_channel, ch): ch for ch in untrusted_cn}
+        futures = {pool.submit(validate_channel, ch, strict=False): ch for ch in untrusted_cn}
         done = 0
         for future in as_completed(futures):
             done += 1

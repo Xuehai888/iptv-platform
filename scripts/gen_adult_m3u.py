@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""合并成人直播源生成 adult.m3u（含有效性验证，剔除失效频道）"""
+"""合并成人直播源生成 adult.m3u（内容级验证：剔除返回HTML/非视频流的失效频道）"""
 import urllib.request, ssl, re, os
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -8,26 +8,44 @@ ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-TIMEOUT = 8
+TIMEOUT = 10
 
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=30, context=ctx) as r:
         return r.read().decode('utf-8', errors='replace')
 
+def is_video(head_bytes, content_type):
+    ct = (content_type or "").lower()
+    if any(k in ct for k in ("mpegurl", "m3u8", "mp4", "video", "octet-stream", "x-msvideo",
+                             "quicktime", "x-matroska", "x-flv", "mpeg", "x-mpegts", "vnd.apple")):
+        return True
+    if head_bytes.startswith(b"#EXTM3U"):
+        return True
+    if head_bytes.startswith((b"\x1a\x45\xdf\xa3", b"ID3", b"ftyp", b"\x47")):
+        return True
+    low = head_bytes[:1024].lstrip().lower()
+    if low.startswith(b"<!doctype") or low.startswith(b"<html") or b"<title>" in low:
+        return False  # HTML 页面
+    return False
+
 def check_one(item):
     group, name, url = item
     if not url:
         return False
     try:
-        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "VLC/3.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": "VLC/3.0", "Range": "bytes=0-4095"})
         with urllib.request.urlopen(req, timeout=TIMEOUT, context=ctx) as r:
-            return r.status in (200, 301, 302)
+            head = r.read(4096)
+            status = r.status
+            if status not in (200, 206, 301, 302):
+                return False
+            return is_video(head, r.headers.get("Content-Type", ""))
     except Exception:
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": "VLC/3.0", "Range": "bytes=0-1024"})
+            req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "VLC/3.0"})
             with urllib.request.urlopen(req, timeout=TIMEOUT, context=ctx) as r:
-                return r.status in (200, 206, 301, 302)
+                return r.status in (200, 301, 302)
         except Exception:
             return False
 
@@ -85,7 +103,7 @@ for tag, url in sources:
             seen.add(url)
             channels.append(('\U0001f51e \u6210\u4eba', name, url))
 
-print("共收集 %d 个频道（去重后），开始验证..." % len(channels))
+print("共收集 %d 个频道（去重后），内容级验证中..." % len(channels))
 
 valid = []
 with ThreadPoolExecutor(max_workers=60) as pool:
@@ -104,7 +122,7 @@ with ThreadPoolExecutor(max_workers=60) as pool:
 
 print("验证完成: %d/%d 有效 (%d%%)" % (len(valid), len(channels), int(len(valid)/max(len(channels),1)*100)))
 
-out_lines = ["#EXTM3U", "# 天天电视成人直播 - %d channels (已清理失效)" % len(valid)]
+out_lines = ["#EXTM3U", "# 天天电视成人直播 - %d channels (内容级验证)" % len(valid)]
 for group, name, url in valid:
     g = group.replace('"', '')
     out_lines.append('#EXTINF:-1 group-title="%s",%s' % (g, name))
