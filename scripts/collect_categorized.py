@@ -214,6 +214,28 @@ def fetch_url(url, timeout=20):
     return None
 
 
+def sanitize_name(name):
+    """清洗频道名：解码 HTML 实体（含双重编码），去掉 HTML 标签，清理多余空白"""
+    if not name:
+        return name
+    import html as _html
+    name = _html.unescape(name)
+    name = _html.unescape(name)  # 处理 &amp;amp; 等双重编码
+    name = re.sub(r"<[^>]+>", "", name)  # 去掉 HTML 标签
+    return re.sub(r"\s+", " ", name).strip()
+
+
+def sanitize_url(url):
+    """清洗 URL：解码 HTML 实体（含双重编码），去掉尾随引号等杂质"""
+    if not url:
+        return url
+    import html as _html
+    url = _html.unescape(url)
+    url = _html.unescape(url)  # 处理 &amp;amp; 等双重编码
+    url = url.strip().strip('"').strip("'").strip()
+    return url
+
+
 def parse_m3u(content):
     channels = []
     if not content:
@@ -224,16 +246,16 @@ def parse_m3u(content):
         line = line.strip()
         if line.startswith("#EXTINF:"):
             match = re.search(r'#EXTINF:-?\d+\s*(?:[a-z-]+="[^"]*"\s*)*,(.+)', line)
-            name = match.group(1).strip() if match else "Unknown"
+            name = sanitize_name(match.group(1).strip() if match else "Unknown")
             logo_m = re.search(r'tvg-logo="([^"]*)"', line)
             logo = logo_m.group(1) if logo_m else ""
             group_m = re.search(r'(?:group-title|tvg-group)="([^"]*)"', line)
-            group = group_m.group(1) if group_m else "Other"
+            group = sanitize_name(group_m.group(1) if group_m else "Other")
             country_m = re.search(r'tvg-country="([^"]*)"', line)
             country = country_m.group(1) if country_m else ""
             current = {"name": name, "logo": logo, "group": group, "country": country}
         elif line and not line.startswith("#"):
-            current["url"] = line
+            current["url"] = sanitize_url(line)
             if "name" in current:
                 channels.append(current)
             current = {}
@@ -250,11 +272,11 @@ def parse_txt(content):
         if not line or line.startswith("#"):
             continue
         if ",#genre#" in line:
-            current_group = line.replace(",#genre#", "").strip()
+            current_group = sanitize_name(line.replace(",#genre#", "").strip())
         elif "," in line:
             parts = line.split(",", 1)
             if len(parts) == 2:
-                name, url = parts[0].strip(), parts[1].strip()
+                name, url = sanitize_name(parts[0].strip()), sanitize_url(parts[1].strip())
                 if url.startswith("http"):
                     channels.append({"name": name, "url": url, "group": current_group, "logo": "", "country": ""})
     return channels
