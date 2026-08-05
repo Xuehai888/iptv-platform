@@ -479,9 +479,23 @@ def main():
     
     log.info(f"Valid Chinese: {len(valid_cn)}")
 
-    # International: no validation (too many, too slow)
-    # Just keep all
-    valid_intl = intl_channels
+    # International: validate to cleanup dead channels
+    log.info("Validating %d International channels..." % len(intl_channels))
+    valid_intl = []
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {pool.submit(validate_channel, ch): ch for ch in intl_channels}
+        done = 0
+        for future in as_completed(futures):
+            done += 1
+            ch = futures[future]
+            try:
+                if future.result():
+                    valid_intl.append(ch)
+            except Exception:
+                pass
+            if done % 100 == 0:
+                log.info("  %d/%d, valid: %d" % (done, len(intl_channels), len(valid_intl)))
+    log.info("Valid International: %d" % len(valid_intl))
 
     # Sort
     valid_cn = sort_channels(valid_cn)
