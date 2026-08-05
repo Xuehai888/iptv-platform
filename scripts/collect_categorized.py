@@ -324,9 +324,6 @@ def generate_m3u(channels, title="IPTV"):
     for ch in channels:
         logo = ch.get("logo", "")
         group = ch.get("category", ch.get("group", "Other"))
-        # 品牌化：统一加"天天电视 · "前缀（幂等，避免重复）
-        if group and not group.startswith("天天电视"):
-            group = f"天天电视 · {group}"
         name = ch.get("name", "Unknown")
         url = ch.get("url", "")
         logo_attr = f' tvg-logo="{logo}"' if logo else ""
@@ -635,12 +632,12 @@ def main():
     <div class="card" style="border: 2px solid #e94560; background: #fffaf0;">
         <h2>🚀 TVBox / 影视仓 使用（推荐）</h2>
         <p><strong>📺 直播（一个源看全部，不走线路）：</strong>TVBox 直播页 → 添加直播源 → 粘贴：</p>
-        <div class="url">天天电视直播总源（16324 频道 · 央视/卫视/地方台/港澳台/各国 29 分类）：<br>http://207.246.102.108/m3u/all.m3u</div>
-        <div class="url">国内精简版（央视/卫视/地方台/港澳台 1588 频道）：<br>http://207.246.102.108/m3u/cn.m3u</div>
+        <div class="url">直播总源（16324 频道 · 央视/卫视/地方台/港澳台/各国 29 分类）：<br>http://YOUR_SERVER_IP/m3u/all.m3u</div>
+        <div class="url">国内精简版（央视/卫视/地方台/港澳台 1588 频道）：<br>http://YOUR_SERVER_IP/m3u/cn.m3u</div>
         <p><strong>🔞 成人直播（成人频道，请自行斟酌）：</strong>同样在直播页添加直播源：</p>
-        <div class="url">天天电视成人直播（776 频道）：<br>http://207.246.102.108/m3u/adult.m3u</div>
+        <div class="url">成人直播（776 频道）：<br>http://YOUR_SERVER_IP/m3u/adult.m3u</div>
         <p><strong>🎬 点播（线路只用于点播）：</strong>TVBox 设置 → 配置地址 → 粘贴仓库 → 保存后选一条线路：</p>
-        <div class="url">天天电视点播仓库（27 条点播线路，每 6 小时自动筛选更新）：<br>http://207.246.102.108/tvbox/repo.json</div>
+        <div class="url">点播仓库（27 条点播线路，每 6 小时自动筛选更新）：<br>http://YOUR_SERVER_IP/tvbox/repo.json</div>
     </div>
     """
 
@@ -649,7 +646,7 @@ def main():
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>📺 天天电视 - IPTV 直播源站</title>
+    <title>📺  - IPTV 直播源站</title>
     <style>
         * {{ box-sizing: border-box; }}
         body {{ font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 960px; margin: 0 auto; padding: 20px; background: #f5f5f5; }}
@@ -672,7 +669,7 @@ def main():
     </style>
 </head>
 <body>
-    <h1>📺 天天电视 IPTV 源站</h1>
+    <h1>📺  IPTV 源站</h1>
     <p class="subtitle">Last updated: {timestamp} | Auto-refresh every 6 hours</p>
 
     <div class="stats">
@@ -698,8 +695,8 @@ def main():
 
     <div class="card">
         <h2>🇨🇳 国内频道（已验证可用）</h2>
-        <div class="url">M3U: http://207.246.102.108/m3u/cn.m3u ({len(valid_cn)}频道)</div>
-        <div class="url">TXT: http://207.246.102.108/txt/cn.txt ({len(valid_cn)}频道)</div>
+        <div class="url">M3U: http://YOUR_SERVER_IP/m3u/cn.m3u ({len(valid_cn)}频道)</div>
+        <div class="url">TXT: http://YOUR_SERVER_IP/txt/cn.txt ({len(valid_cn)}频道)</div>
         <table>
             <tr><th>分类</th><th>数量</th><th>链接</th></tr>
             <tr><td>📺 CCTV央视</td><td>{len(cctv)}</td><td><a href="/m3u/cctv.m3u">cctv.m3u</a></td></tr>
@@ -711,7 +708,7 @@ def main():
 
     <div class="card">
         <h2>🌍 国际频道</h2>
-        <div class="url">M3U: http://207.246.102.108/m3u/international.m3u ({len(valid_intl)}频道)</div>
+        <div class="url">M3U: http://YOUR_SERVER_IP/m3u/international.m3u ({len(valid_intl)}频道)</div>
         <table>
             <tr><th>地区</th><th>数量</th><th>链接</th></tr>"""
 
@@ -727,8 +724,8 @@ def main():
 
     <div class="card">
         <h2>📺 全部频道（{len(all_channels_sorted)}）</h2>
-        <div class="url">M3U: http://207.246.102.108/m3u/all.m3u</div>
-        <div class="url">TXT: http://207.246.102.108/txt/all.txt</div>
+        <div class="url">M3U: http://YOUR_SERVER_IP/m3u/all.m3u</div>
+        <div class="url">TXT: http://YOUR_SERVER_IP/txt/all.txt</div>
     </div>
 
     <div class="card">
@@ -740,8 +737,8 @@ def main():
 
     <div class="card">
         <h2>📖 使用方法</h2>
-        <p><strong>TVBox / 影视仓 · 点播：</strong>设置 → 配置地址 → 粘贴 http://207.246.102.108/tvbox/repo.json → 保存 → 选线路（欧歌/驸马/真心等）</p>
-        <p><strong>TVBox / 影视仓 · 直播：</strong>直播页 → 添加直播源 → 粘贴 http://207.246.102.108/m3u/all.m3u（或国内版 cn.m3u）</p>
+        <p><strong>TVBox / 影视仓 · 点播：</strong>设置 → 配置地址 → 粘贴 http://YOUR_SERVER_IP/tvbox/repo.json → 保存 → 选线路（欧歌/驸马/真心等）</p>
+        <p><strong>TVBox / 影视仓 · 直播：</strong>直播页 → 添加直播源 → 粘贴 http://YOUR_SERVER_IP/m3u/all.m3u（或国内版 cn.m3u）</p>
         <p><strong>VLC/PotPlayer：</strong>媒体 → 打开网络串流 → 粘贴 M3U 链接</p>
         <p><strong>TiviMate：</strong>添加播放列表 → M3U 链接</p>
     </div>

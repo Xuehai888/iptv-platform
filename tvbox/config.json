@@ -32,28 +32,28 @@
     {
       "name": "📺 中文直播（565频道）",
       "type": 0,
-      "url": "http://207.246.102.108/m3u/cn.m3u",
+      "url": "http://YOUR_SERVER_IP/m3u/cn.m3u",
       "epg": "https://epg.112114.xyz/?ch={name}&date={date}",
       "logo": "https://epg.112114.xyz/logo/{name}.png"
     },
     {
       "name": "📺 CCTV央视（228频道）",
       "type": 0,
-      "url": "http://207.246.102.108/m3u/cctv.m3u",
+      "url": "http://YOUR_SERVER_IP/m3u/cctv.m3u",
       "epg": "https://epg.112114.xyz/?ch={name}&date={date}",
       "logo": "https://epg.112114.xyz/logo/{name}.png"
     },
     {
       "name": "📺 卫视频道（217频道）",
       "type": 0,
-      "url": "http://207.246.102.108/m3u/weishi.m3u",
+      "url": "http://YOUR_SERVER_IP/m3u/weishi.m3u",
       "epg": "https://epg.112114.xyz/?ch={name}&date={date}",
       "logo": "https://epg.112114.xyz/logo/{name}.png"
     },
     {
       "name": "🌍 全球频道（15000+）",
       "type": 0,
-      "url": "http://207.246.102.108/m3u/all.m3u",
+      "url": "http://YOUR_SERVER_IP/m3u/all.m3u",
       "epg": "https://epg.112114.xyz/pp.xml"
     },
     {

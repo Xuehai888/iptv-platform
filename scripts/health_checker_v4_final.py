@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-IPTV Health Monitor v4 - 【天天电视】品牌版
+IPTV Health Monitor v4 - 【】品牌版
 ============================================
 Tests source file accessibility + samples channels.
 Handles BOTH local files and remote URLs correctly.
@@ -16,7 +16,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import OrderedDict
 
 # ===================== 品牌设置 =====================
-BRAND_NAME = "天天电视"
+BRAND_NAME = ""
 
 def get_branded_name(source_name):
     """映射原始名称到带有品牌前缀的漂亮名称"""
@@ -356,7 +356,7 @@ tr.fail td {{ background-color: #fff5f5; }}
             ch = f" | 📡 {r['sample_ok']}/{r['sample_total']} ({r['channel_rate']}%)"
         icon = "✅" if r["file_ok"] else "❌"
         print(f"{icon} {r['source']:<25} HTTP {r['status']:>3} | {r['channels']} chs|{ch}")
-    print(f"\n📊 Report: http://207.246.102.108/health_report.html")
+    print(f"\n📊 Report: http://YOUR_SERVER_IP/health_report.html")
     print(f"📄 JSON:   {json_path}")
 
 

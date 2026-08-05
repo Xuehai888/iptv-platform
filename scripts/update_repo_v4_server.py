@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-TVBox 仓库全量更新 v4 —— 【天天电视】品牌版（服务器端纯版）
+TVBox 仓库全量更新 v4 —— 品牌版（服务器端纯版）
 ============================================================
 - 在服务器上直接运行（无 paramiko 依赖）
 - 测试所有接口可用性（含成人点播源）
-- 所有线路统一添加 "天天电视 ·" 品牌前缀
+- 所有线路统一添加 " ·" 品牌前缀
 - 写入 /opt/iptv/tvbox/repo.json + 更新 index.html
 """
 import json
@@ -16,10 +16,10 @@ from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 
 # ===================== 品牌设置 =====================
-BRAND_NAME = "天天电视"
+BRAND_NAME = ""
 
 def get_branded_name(raw_name):
-    """将原始名称统一包装为 天天电视 · xxx"""
+    """将原始名称统一包装为  · xxx"""
     clean_name = raw_name.strip()
     if BRAND_NAME in clean_name:
         return clean_name
@@ -136,7 +136,7 @@ def test_url(item):
 
 def main():
     print("=" * 70)
-    print(f"📺 {BRAND_NAME} | TVBox 仓库全量更新 v4（服务器端品牌版）")
+    print(f"📺 {BRAND_NAME} | TVBox 仓库全量更新 v4（服务器端）")
     print("=" * 70)
     print("正在测试所有接口可用性（含成人点播源）...")
     print()
@@ -165,7 +165,7 @@ def main():
     multi_ok = [r for r in ok_results if r[4] == "multi"]
     live_ok = [r for r in ok_results if r[4] == "live"]
 
-    # ===================== 构建【天天电视】品牌仓库 =====================
+    # ===================== 构建品牌仓库 =====================
     urls = []
 
     # 1) 多仓源（品牌化）
@@ -178,8 +178,8 @@ def main():
 
     # 3) 外部直播源：不再加入仓库（"线路归线路，直播自己配"）
     #    直播请直接在 TVBox 直播页添加 m3u 源：
-    #      http://207.246.102.108/m3u/all.m3u   （天天电视直播总源，16324 频道 29 分组）
-    #      http://207.246.102.108/m3u/cn.m3u    （国内精简版，1588 频道）
+    #      http://YOUR_SERVER_IP/m3u/all.m3u   （直播总源，16324 频道 29 分组）
+    #      http://YOUR_SERVER_IP/m3u/cn.m3u    （国内精简版，1588 频道）
     #    live_ok 仅保留统计用途
 
     # 4) 自建直播源（品牌化命名，频道数动态读取）
@@ -198,7 +198,7 @@ def main():
         live = {
             "name": name,
             "type": 0,
-            "url": f"http://207.246.102.108/m3u/{m3u_path}",
+            "url": f"http://YOUR_SERVER_IP/m3u/{m3u_path}",
             "playerType": 2,
             "timeout": 10
         }
@@ -206,7 +206,7 @@ def main():
             live["epg"] = epg_url
         return live
 
-    def write_live_config(json_name, lives, cfg_name="天天电视直播"):
+    def write_live_config(json_name, lives, cfg_name="直播"):
         """写入完整 TVBox 直播配置 JSON。
 
         重要：必须以"欧歌基座"（spider 完整URL + 127个sites + parses）为模板，
@@ -234,12 +234,12 @@ def main():
     all_count = count_channels("all.m3u")
 
     # 每个分类一个独立配置（选线路后只显示对应分类的直播源）
-    write_live_config("live_cn.json", [make_live(f"{BRAND_NAME} · 🇨🇳 中国频道（{cn_count}）", "cn.m3u")], "天天电视·中国频道")
-    write_live_config("live_cctv.json", [make_live(f"{BRAND_NAME} · 📺 央视频道（{cctv_count}）", "cctv.m3u")], "天天电视·央视")
-    write_live_config("live_weishi.json", [make_live(f"{BRAND_NAME} · 📡 卫视频道（{weishi_count}）", "weishi.m3u")], "天天电视·卫视")
-    write_live_config("live_local.json", [make_live(f"{BRAND_NAME} · 🏠 地方台（{local_count}）", "local.m3u")], "天天电视·地方台")
-    write_live_config("live_hktwmo.json", [make_live(f"{BRAND_NAME} · 🇭🇰 港澳台（{hktwmo_count}）", "hktwmo.m3u")], "天天电视·港澳台")
-    write_live_config("live_all.json", [make_live(f"{BRAND_NAME} · 🌍 全球频道（{all_count}）", "all.m3u")], "天天电视·全球")
+    write_live_config("live_cn.json", [make_live(f"{BRAND_NAME} · 🇨🇳 中国频道（{cn_count}）", "cn.m3u")], "中国频道")
+    write_live_config("live_cctv.json", [make_live(f"{BRAND_NAME} · 📺 央视频道（{cctv_count}）", "cctv.m3u")], "央视")
+    write_live_config("live_weishi.json", [make_live(f"{BRAND_NAME} · 📡 卫视频道（{weishi_count}）", "weishi.m3u")], "卫视")
+    write_live_config("live_local.json", [make_live(f"{BRAND_NAME} · 🏠 地方台（{local_count}）", "local.m3u")], "地方台")
+    write_live_config("live_hktwmo.json", [make_live(f"{BRAND_NAME} · 🇭🇰 港澳台（{hktwmo_count}）", "hktwmo.m3u")], "港澳台")
+    write_live_config("live_all.json", [make_live(f"{BRAND_NAME} · 🌍 全球频道（{all_count}）", "all.m3u")], "全球")
 
     # 一站式配置：6 个直播源合成一个配置，选一条线路直播页就有全部 6 个源（最接近欧歌体验）
     all_lives = [
@@ -250,12 +250,12 @@ def main():
         make_live(f"{BRAND_NAME} · 🇭🇰 港澳台（{hktwmo_count}）", "hktwmo.m3u"),
         make_live(f"{BRAND_NAME} · 🌍 全球频道（{all_count}）", "all.m3u"),
     ]
-    write_live_config("live_all_in_one.json", all_lives, "天天电视·直播总源")
+    write_live_config("live_all_in_one.json", all_lives, "直播总源")
 
     # 4) 自建直播配置：不再加入仓库（"线路归线路，直播自己配"）
     #    用户直接在 TVBox 直播页添加 m3u 总源即可：
-    #      http://207.246.102.108/m3u/all.m3u   （一个源看全部：央视/卫视/地方台/港澳台/各国）
-    #      http://207.246.102.108/m3u/cn.m3u    （国内精简版）
+    #      http://YOUR_SERVER_IP/m3u/all.m3u   （一个源看全部：央视/卫视/地方台/港澳台/各国）
+    #      http://YOUR_SERVER_IP/m3u/cn.m3u    （国内精简版）
     #    live_*.json 仍保留生成（供配置方式备用），但不写入 repo.json
 
     repo_json = {
@@ -290,9 +290,9 @@ def main():
     print(f"  - 多仓: {len(multi_ok)} 条")
     print(f"  - 单仓(含成人): {len(single_ok)} 条")
     print(f"\n📺 直播源（TVBox 直播页直接添加，不走线路）:")
-    print(f"  - 天天电视直播总源: http://207.246.102.108/m3u/all.m3u")
-    print(f"  - 国内精简版:      http://207.246.102.108/m3u/cn.m3u")
-    print(f"\n🔗 多仓地址: http://207.246.102.108/tvbox/repo.json")
+    print(f"  - 直播总源: http://YOUR_SERVER_IP/m3u/all.m3u")
+    print(f"  - 国内精简版:      http://YOUR_SERVER_IP/m3u/cn.m3u")
+    print(f"\n🔗 多仓地址: http://YOUR_SERVER_IP/tvbox/repo.json")
     print(f"🕐 更新时间: {repo_json['update_time']}")
 
 

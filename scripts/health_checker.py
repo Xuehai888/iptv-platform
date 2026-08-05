@@ -223,22 +223,22 @@ def main():
     # (显示名, 源地址, 公开直播地址/URL)
     SOURCES = [
         # === LOCAL FILES (read directly from disk) ===
-        ("天天电视 · 🇨🇳 中国频道", "file:" + M3U_DIR + "/cn.m3u", "http://207.246.102.108/m3u/cn.m3u"),
-        ("天天电视 · 🌍 全球频道", "file:" + M3U_DIR + "/all.m3u", "http://207.246.102.108/m3u/all.m3u"),
-        ("天天电视 · 📺 央视频道", "file:" + M3U_DIR + "/cctv.m3u", "http://207.246.102.108/m3u/cctv.m3u"),
-        ("天天电视 · 📡 卫视频道", "file:" + M3U_DIR + "/weishi.m3u", "http://207.246.102.108/m3u/weishi.m3u"),
-        ("天天电视 · 🏠 地方台", "file:" + M3U_DIR + "/local.m3u", "http://207.246.102.108/m3u/local.m3u"),
-        ("天天电视 · 🇭🇰 港澳台", "file:" + M3U_DIR + "/hktwmo.m3u", "http://207.246.102.108/m3u/hktwmo.m3u"),
-        ("天天电视 · 🌐 国际频道", "file:" + M3U_DIR + "/international.m3u", "http://207.246.102.108/m3u/international.m3u"),
+        ("🇨🇳 中国频道", "file:" + M3U_DIR + "/cn.m3u", "http://YOUR_SERVER_IP/m3u/cn.m3u"),
+        ("🌍 全球频道", "file:" + M3U_DIR + "/all.m3u", "http://YOUR_SERVER_IP/m3u/all.m3u"),
+        ("📺 央视频道", "file:" + M3U_DIR + "/cctv.m3u", "http://YOUR_SERVER_IP/m3u/cctv.m3u"),
+        ("📡 卫视频道", "file:" + M3U_DIR + "/weishi.m3u", "http://YOUR_SERVER_IP/m3u/weishi.m3u"),
+        ("🏠 地方台", "file:" + M3U_DIR + "/local.m3u", "http://YOUR_SERVER_IP/m3u/local.m3u"),
+        ("🇭🇰 港澳台", "file:" + M3U_DIR + "/hktwmo.m3u", "http://YOUR_SERVER_IP/m3u/hktwmo.m3u"),
+        ("🌐 国际频道", "file:" + M3U_DIR + "/international.m3u", "http://YOUR_SERVER_IP/m3u/international.m3u"),
         
         # === EXTERNAL LIVE SOURCES ===
-        ("天天电视 · 📺 悦然直播", "https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u", "https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u"),
-        ("天天电视 · 🌍 悦然全球", "https://raw.githubusercontent.com/YueChan/Live/main/Global.m3u", "https://raw.githubusercontent.com/YueChan/Live/main/Global.m3u"),
-        ("天天电视 · 🛰️ 国云直播", "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u", "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"),
-        ("天天电视 · 📡 ZBDS直播", "https://live.zbds.top/tv/iptv4.txt", "https://live.zbds.top/tv/iptv4.txt"),
-        ("天天电视 · 📺 苏翔直播", "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u", "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u"),
-        ("天天电视 · 🌐 自由电视", "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8", "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"),
-        ("天天电视 · 📺 游魂直播", "https://www.iyouhun.com/tv/zb", "https://www.iyouhun.com/tv/zb"),
+        ("📺 悦然直播", "https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u", "https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u"),
+        ("🌍 悦然全球", "https://raw.githubusercontent.com/YueChan/Live/main/Global.m3u", "https://raw.githubusercontent.com/YueChan/Live/main/Global.m3u"),
+        ("🛰️ 国云直播", "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u", "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"),
+        ("📡 ZBDS直播", "https://live.zbds.top/tv/iptv4.txt", "https://live.zbds.top/tv/iptv4.txt"),
+        ("📺 苏翔直播", "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u", "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u"),
+        ("🌐 自由电视", "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8", "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"),
+        ("📺 游魂直播", "https://www.iyouhun.com/tv/zb", "https://www.iyouhun.com/tv/zb"),
     ]
     
     # ===================== Step 1: Test all sources =====================
@@ -376,7 +376,7 @@ def main():
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>天天电视健康报告 - {timestamp}</title>
+<title>健康报告 - {timestamp}</title>
 <style>
 body {{ font-family: -apple-system, sans-serif; max-width: 1100px; margin: 0 auto; padding: 20px; background: #f5f5f5; }}
 h1 {{ text-align: center; color: #333; }}
@@ -392,7 +392,7 @@ tr.fail td {{ background-color: #fff5f5; }}
 </style>
 </head>
 <body>
-<h1>📺 天天电视 · 健康报告</h1>
+<h1>📺 健康报告</h1>
 <p class="updated">{timestamp} | Cron: 每12小时自动检测</p>
 <div class="summary">
 <div class="card"><div class="big">{ext_ok}/{len(ext_results)}</div><div>外部直播源可用</div></div>
@@ -440,7 +440,7 @@ tr.fail td {{ background-color: #fff5f5; }}
     for r in repo_lines:
         icon = "✅" if r["ok"] else "❌"
         print(f"{icon} {r['name']:<30} {r['type']:<8} HTTP {r['status']:>3} | {r['channels']} chs/lives")
-    print(f"\n📊 Report: http://207.246.102.108/health_report.html")
+    print(f"\n📊 Report: http://YOUR_SERVER_IP/health_report.html")
     print(f"📄 JSON:   {json_path}")
 
 

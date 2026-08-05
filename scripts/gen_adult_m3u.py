@@ -122,9 +122,9 @@ with ThreadPoolExecutor(max_workers=60) as pool:
 
 print("验证完成: %d/%d 有效 (%d%%)" % (len(valid), len(channels), int(len(valid)/max(len(channels),1)*100)))
 
-GROUP_NAME = "天天电视 · \U0001f51e 成人频道"
+GROUP_NAME = "\U0001f51e 成人频道"
 
-out_lines = ["#EXTM3U", "# 天天电视成人直播 - %d channels (内容级验证)" % len(valid)]
+out_lines = ["#EXTM3U", "# 成人直播 - %d channels (内容级验证)" % len(valid)]
 for group, name, url in valid:
     g = group.replace('"', '')
     out_lines.append('#EXTINF:-1 group-title="%s",%s' % (g, name))

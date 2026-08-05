@@ -1,15 +1,15 @@
-# 天天电视 IPTV 平台 (Everyday TV Platform)
+# IPTV Platform
 
-自建 IPTV 直播源站 + TVBox 仓库自动化平台，部署于 Vultr 服务器。
+自建 IPTV 直播源站 + TVBox 仓库自动化平台（无个性化品牌标识，通用部署）。
 
 ## ✨ 功能特性
 
 - 📺 **IPTV 直播源站**：自动采集、验证、分类国内外直播频道（央视/卫视/地方台/港澳台/国际/成人）
-- 📦 **TVBox 仓库**：自动生成多仓 `repo.json`，内置 28+ 点播线路（含成人点播），每 6 小时自动测试可用性
+- 📦 **TVBox 仓库**：自动生成多仓 `repo.json`，内置 28+ 点播线路（含成人点播），每 12 小时自动测试可用性
 - 🔍 **健康检查**：自动检测各源可用性，生成可视化健康报告
 - 🌱 **自动补种**：定时从公开源补充失效/新增频道
-- 🔞 **成人频道**：独立成人直播源 `adult.m3u`（776 频道）与成人点播线路，每天自动重建
-- 🏷️ **品牌化**：所有线路/分组统一"天天电视"品牌命名
+- 🔞 **成人频道**：独立成人直播源 `adult.m3u` 与成人点播线路，每天自动重建（内容级验证，剔除 HTML 假 200）
+- ✅ **两级验证**：国际/成人频道严格内容验证（防 CDN 假 200），国内频道宽松验证（防防盗链误杀）
 
 ## 📁 目录结构
 
@@ -21,8 +21,7 @@
 │   ├── auto_supplement.py    # 失效频道补种（每天3:30）
 │   ├── update_repo_v4_server.py # TVBox 仓库更新+线路可用性测试（每12h）
 │   ├── health_checker.py     # 健康检查器（每12h，生成 health_report.html）
-│   ├── gen_adult_m3u.py      # 成人直播源重建（每天3:30）
-│   └── brand_m3u_groups.py   # m3u 分组品牌化
+│   └── gen_adult_m3u.py      # 成人直播源重建（每天3:30）
 ├── tvbox/                    # TVBox 配置产物
 │   ├── repo.json             # 多仓地址（推荐）
 │   └── config.json           # 单线路配置
@@ -45,6 +44,8 @@ cd /opt/iptv/scripts
 # 首次初始化：先手工跑一次 collect.py 生成基础 m3u
 python3 collect.py
 ```
+
+> 部署前请将脚本与配置中的 `YOUR_SERVER_IP` 替换为你的服务器 IP（或域名）。
 
 ### 定时任务（crontab，服务器时区 UTC）
 
@@ -72,6 +73,11 @@ python3 collect.py
 | 直播总源 | `http://<服务器IP>/m3u/all.m3u` |
 | 国内精简 | `http://<服务器IP>/m3u/cn.m3u` |
 | 成人直播 | `http://<服务器IP>/m3u/adult.m3u` |
+
+## ⚠️ 安全提示
+
+- 仓库代码不含真实服务器地址（统一为 `YOUR_SERVER_IP` 占位符），请自行替换
+- 成人直播源涉及版权与合规风险，请确认部署地法律允许后再启用 `gen_adult_m3u.py` 定时任务
 
 ## 📜 许可
 

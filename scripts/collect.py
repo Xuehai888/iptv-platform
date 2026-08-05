@@ -382,29 +382,29 @@ def main():
         <div class="card">
             <h3>🇨🇳 中文频道 ({len(valid_cn)})</h3>
             <p>M3U 格式 <span class="badge">推荐</span></p>
-            <span class="url">http://207.246.102.108/m3u/cn.m3u</span>
+            <span class="url">http://YOUR_SERVER_IP/m3u/cn.m3u</span>
             <p>TXT 格式 (TVBox兼容)</p>
-            <span class="url">http://207.246.102.108/txt/cn.txt</span>
+            <span class="url">http://YOUR_SERVER_IP/txt/cn.txt</span>
         </div>
 
         <div class="card">
             <h3>📺 CCTV 央视 ({len(cctv)})</h3>
             <p>M3U 格式</p>
-            <span class="url">http://207.246.102.108/m3u/cctv.m3u</span>
+            <span class="url">http://YOUR_SERVER_IP/m3u/cctv.m3u</span>
         </div>
 
         <div class="card">
             <h3>📺 卫视频道 ({len(weishi)})</h3>
             <p>M3U 格式</p>
-            <span class="url">http://207.246.102.108/m3u/weishi.m3u</span>
+            <span class="url">http://YOUR_SERVER_IP/m3u/weishi.m3u</span>
         </div>
 
         <div class="card">
             <h3>🌍 全球频道 ({len(all_output)})</h3>
             <p>M3U 格式</p>
-            <span class="url">http://207.246.102.108/m3u/all.m3u</span>
+            <span class="url">http://YOUR_SERVER_IP/m3u/all.m3u</span>
             <p>TXT 格式</p>
-            <span class="url">http://207.246.102.108/txt/all.txt</span>
+            <span class="url">http://YOUR_SERVER_IP/txt/all.txt</span>
         </div>
     </div>
 

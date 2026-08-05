@@ -354,9 +354,6 @@ def main(dry_run=False):
             
             def m3u_extinf(ch):
                 group = ch.get("group", ch.get("category", "Other"))
-                # 品牌化：统一加"天天电视 · "前缀（幂等）
-                if group and not group.startswith("天天电视"):
-                    group = f"天天电视 · {group}"
                 logo = ch.get("logo", "")
                 logo_attr = f' tvg-logo="{logo}"' if logo else ""
                 # 标准 group-title 属性（TVBox 兼容）

@@ -202,9 +202,9 @@ def main():
     print(f"新增点播源: {len(single_ok)} 条")
     print(f"新增EPG: {len(epg_ok)} 条")
     print(f"仓库总线路: {total} 条")
-    print(f"\n多仓地址: http://207.246.102.108/tvbox/repo.json")
-    print(f"配置地址: http://207.246.102.108/tvbox/config.json")
-    print(f"EPG列表:  http://207.246.102.108/tvbox/epg.txt")
+    print(f"\n多仓地址: http://YOUR_SERVER_IP/tvbox/repo.json")
+    print(f"配置地址: http://YOUR_SERVER_IP/tvbox/config.json")
+    print(f"EPG列表:  http://YOUR_SERVER_IP/tvbox/epg.txt")
 
 
 if __name__ == "__main__":

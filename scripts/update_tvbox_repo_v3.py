@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-TVBox 仓库全量更新 v3 —— 【天天电视】品牌版
+TVBox 仓库全量更新 v3 —— 品牌版
 ============================================
 - 加入成人点播源（🔞 极乐 / 悦动）
-- 所有线路（点播+直播）统一添加 "天天电视 ·" 品牌前缀
+- 所有线路（点播+直播）统一添加 " ·" 品牌前缀
 - 自建直播源品牌化命名
 - 直接连接服务器更新 /opt/iptv/tvbox/repo.json
 """
@@ -16,17 +16,17 @@ from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 
 # ===================== 品牌设置 =====================
-BRAND_NAME = "天天电视"
+BRAND_NAME = ""
 
 def get_branded_name(raw_name):
-    """将原始名称统一包装为 天天电视 · xxx"""
+    """将原始名称统一包装为  · xxx"""
     clean_name = raw_name.strip()
     if BRAND_NAME in clean_name:
         return clean_name
     return f"{BRAND_NAME} · {clean_name}"
 
 # ===================== 服务器配置 =====================
-host = "207.246.102.108"
+host = "YOUR_SERVER_IP"
 user = "root"
 password = "dF4=cc[xPME[t_y8"
 
@@ -167,7 +167,7 @@ single_ok = [r for r in ok_results if r[4] == "single"]
 multi_ok = [r for r in ok_results if r[4] == "multi"]
 live_ok = [r for r in ok_results if r[4] == "live"]
 
-# ===================== 构建【天天电视】品牌仓库 =====================
+# ===================== 构建品牌仓库 =====================
 urls = []
 
 # 1) 多仓源（品牌化）
@@ -183,10 +183,10 @@ for r in live_ok:
     urls.append({"name": get_branded_name(r[0]), "url": r[1]})
 
 # 4) 自建直播源（品牌化命名）
-urls.append({"name": f"{BRAND_NAME} · 🇨🇳 中国频道", "url": "http://207.246.102.108/m3u/cn.m3u"})
-urls.append({"name": f"{BRAND_NAME} · 📺 央视频道", "url": "http://207.246.102.108/m3u/cctv.m3u"})
-urls.append({"name": f"{BRAND_NAME} · 📡 卫视频道", "url": "http://207.246.102.108/m3u/weishi.m3u"})
-urls.append({"name": f"{BRAND_NAME} · 🌍 全球频道", "url": "http://207.246.102.108/m3u/all.m3u"})
+urls.append({"name": f"{BRAND_NAME} · 🇨🇳 中国频道", "url": "http://YOUR_SERVER_IP/m3u/cn.m3u"})
+urls.append({"name": f"{BRAND_NAME} · 📺 央视频道", "url": "http://YOUR_SERVER_IP/m3u/cctv.m3u"})
+urls.append({"name": f"{BRAND_NAME} · 📡 卫视频道", "url": "http://YOUR_SERVER_IP/m3u/weishi.m3u"})
+urls.append({"name": f"{BRAND_NAME} · 🌍 全球频道", "url": "http://YOUR_SERVER_IP/m3u/all.m3u"})
 
 repo_json = {
     "name": f"📺 {BRAND_NAME} - 全能影视直播仓库",
@@ -226,11 +226,11 @@ print(out)
 client.close()
 
 print("\n" + "=" * 70)
-print("✅ TVBox 仓库已更新（天天电视品牌版）")
+print("✅ TVBox 仓库已更新（品牌版）")
 print("=" * 70)
 print(f"📺 品牌名称: {BRAND_NAME}")
 print(f"📦 可用线路: {len(urls)} 条")
 print(f"  - 多仓: {len(multi_ok)} 条")
 print(f"  - 单仓(含成人): {len(single_ok)} 条")
 print(f"  - 直播: {len(live_ok) + 4} 条")
-print(f"\n🔗 多仓地址: http://207.246.102.108/tvbox/repo.json")
+print(f"\n🔗 多仓地址: http://YOUR_SERVER_IP/tvbox/repo.json")

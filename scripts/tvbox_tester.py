@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Server-side TVBox URL tester - run on 207.246.102.108"""
+"""Server-side TVBox URL tester - run on YOUR_SERVER_IP"""
 import json
 import time
 import concurrent.futures
@@ -164,10 +164,10 @@ def main():
         urls.append({"name": r[0], "url": r[1]})
 
     # Add self-hosted live sources
-    urls.append({"name": "🇨🇳 自建中文直播（565频道）", "url": "http://207.246.102.108/m3u/cn.m3u"})
-    urls.append({"name": "📺 自建CCTV央视（228频道）", "url": "http://207.246.102.108/m3u/cctv.m3u"})
-    urls.append({"name": " 自建卫视频道（217频道）", "url": "http://207.246.102.108/m3u/weishi.m3u"})
-    urls.append({"name": "🌍 自建全球频道（15000+）", "url": "http://207.246.102.108/m3u/all.m3u"})
+    urls.append({"name": "🇨🇳 自建中文直播（565频道）", "url": "http://YOUR_SERVER_IP/m3u/cn.m3u"})
+    urls.append({"name": "📺 自建CCTV央视（228频道）", "url": "http://YOUR_SERVER_IP/m3u/cctv.m3u"})
+    urls.append({"name": " 自建卫视频道（217频道）", "url": "http://YOUR_SERVER_IP/m3u/weishi.m3u"})
+    urls.append({"name": "🌍 自建全球频道（15000+）", "url": "http://YOUR_SERVER_IP/m3u/all.m3u"})
 
     repo_json = {
         "name": "IPTV Source Station - TVBox Multi Repo (Auto-Tested)",
@@ -197,7 +197,7 @@ def main():
     print(f"多仓: {len(multi_ok)} 条")
     print(f"单仓: {len(single_ok)} 条")
     print(f"自建直播源: 4 条")
-    print(f"\n多仓地址: http://207.246.102.108/tvbox/repo.json")
+    print(f"\n多仓地址: http://YOUR_SERVER_IP/tvbox/repo.json")
 
 
 if __name__ == "__main__":
