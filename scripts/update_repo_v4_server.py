@@ -4,7 +4,7 @@
 TVBox 仓库全量更新 v4 —— 品牌版（服务器端纯版）
 ============================================================
 - 在服务器上直接运行（无 paramiko 依赖）
-- 测试所有接口可用性（含成人点播源）
+- 测试所有接口可用性
 - 所有线路统一添加 " ·" 品牌前缀
 - 写入 /opt/iptv/tvbox/repo.json + 更新 index.html
 """
@@ -53,11 +53,7 @@ GH = "https://ghfast.top/https://raw.githubusercontent.com/"
 GH2 = "https://ghproxy.net/https://raw.githubusercontent.com/"
 
 URLS_TO_TEST = [
-    # --- 【1. 成人 VIP 点播源】 ---
-    {"name": "🔞 极乐点播", "url": GH + "hujingguang/ChinaIPTV/main/xxx.m3u8", "type": "single"},
-    {"name": "🔞 悦动成人", "url": "https://raw.bgithub.xyz/wwb521/live/refs/heads/main/video.json", "type": "single"},
-
-    # --- 【2. 普通点播源】 ---
+    # --- 【1. 普通点播源】 ---
     {"name": "🎬 肥猫(.net)", "url": "http://肥猫.net", "type": "single"},
     {"name": "🎬 饭太硬(.net)", "url": "http://www.饭太硬.net/tv", "type": "single"},
     {"name": "🎬 王小二(新)", "url": "https://9280.kstore.vip/newwex.json", "type": "single"},
@@ -138,7 +134,7 @@ def main():
     print("=" * 70)
     print(f"📺 {BRAND_NAME} | TVBox 仓库全量更新 v4（服务器端）")
     print("=" * 70)
-    print("正在测试所有接口可用性（含成人点播源）...")
+    print("正在测试所有接口可用性...")
     print()
 
     results = []
@@ -172,7 +168,7 @@ def main():
     for r in multi_ok:
         urls.append({"name": get_branded_name(r[0]), "url": r[1]})
 
-    # 2) 单仓源（品牌化，含成人点播）
+    # 2) 单仓源
     for r in single_ok:
         urls.append({"name": get_branded_name(r[0]), "url": r[1]})
 
@@ -288,7 +284,7 @@ def main():
     print(f"📺 品牌名称: {BRAND_NAME}")
     print(f"📦 可用线路: {len(urls)} 条（均为点播线路）")
     print(f"  - 多仓: {len(multi_ok)} 条")
-    print(f"  - 单仓(含成人): {len(single_ok)} 条")
+    print(f"  - 单仓: {len(single_ok)} 条")
     print(f"\n📺 直播源（TVBox 直播页直接添加，不走线路）:")
     print(f"  - 直播总源: http://YOUR_SERVER_IP/m3u/all.m3u")
     print(f"  - 国内精简版:      http://YOUR_SERVER_IP/m3u/cn.m3u")

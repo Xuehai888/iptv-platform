@@ -2,7 +2,7 @@
 """
 TVBox 仓库全量更新 v3 —— 品牌版
 ============================================
-- 加入成人点播源（🔞 极乐 / 悦动）
+
 - 所有线路（点播+直播）统一添加 " ·" 品牌前缀
 - 自建直播源品牌化命名
 - 直接连接服务器更新 /opt/iptv/tvbox/repo.json
@@ -38,11 +38,7 @@ def run_cmd(client, cmd, timeout=120):
 
 # ===================== 待测资源列表 =====================
 URLS_TO_TEST = [
-    # --- 【1. 成人 VIP 点播源】 ---
-    {"name": "🔞 极乐点播", "url": "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/main/xxx.m3u8", "type": "single"},
-    {"name": "🔞 悦动点播", "url": "https://gist.github.com/639936/ee108ef4fc3eadcc23c41408fa0d107e", "type": "single"},
-
-    # --- 【2. 普通点播源】 ---
+    # --- 【1. 普通点播源】 ---
     {"name": "🎬 肥猫", "url": "http://肥猫.com/", "type": "single"},
     {"name": "🎬 饭太硬", "url": "http://www.饭太硬.com/tv", "type": "single"},
     {"name": "🎬 饭太硬(备用)", "url": "http://www.饭太硬.com/tv/", "type": "single"},
@@ -142,7 +138,7 @@ def test_url(item):
 print("=" * 70)
 print(f"📺 {BRAND_NAME} | TVBox 仓库全量更新 v3")
 print("=" * 70)
-print("正在测试所有接口可用性（含成人点播源）...")
+print("正在测试所有接口可用性...")
 print()
 
 results = []
@@ -174,7 +170,7 @@ urls = []
 for r in multi_ok:
     urls.append({"name": get_branded_name(r[0]), "url": r[1]})
 
-# 2) 单仓源（品牌化，含成人点播）
+# 2) 单仓源
 for r in single_ok:
     urls.append({"name": get_branded_name(r[0]), "url": r[1]})
 
@@ -190,7 +186,7 @@ urls.append({"name": f"{BRAND_NAME} · 🌍 全球频道", "url": "http://YOUR_S
 
 repo_json = {
     "name": f"📺 {BRAND_NAME} - 全能影视直播仓库",
-    "description": f"{BRAND_NAME}多仓配置：点播+直播+成人精选，自动测试筛选，每6小时更新",
+    "description": f"{BRAND_NAME}多仓配置：点播+直播，自动测试筛选，每6小时更新",
     "version": time.strftime("%Y-%m-%d"),
     "update_time": time.strftime("%Y-%m-%d %H:%M:%S"),
     "urls": urls
@@ -231,6 +227,6 @@ print("=" * 70)
 print(f"📺 品牌名称: {BRAND_NAME}")
 print(f"📦 可用线路: {len(urls)} 条")
 print(f"  - 多仓: {len(multi_ok)} 条")
-print(f"  - 单仓(含成人): {len(single_ok)} 条")
+print(f"  - 单仓: {len(single_ok)} 条")
 print(f"  - 直播: {len(live_ok) + 4} 条")
 print(f"\n🔗 多仓地址: http://YOUR_SERVER_IP/tvbox/repo.json")

@@ -28,9 +28,7 @@ def get_branded_name(source_name):
         "hktwmo.m3u": f"{BRAND_NAME} · 港澳台",
         "international.m3u": f"{BRAND_NAME} · 世界",
         "local.m3u": f"{BRAND_NAME} · 地方",
-        "🔞 Adult Elite": f"{BRAND_NAME} · 🔞 极乐",
-        "🔞 XXX Master": f"{BRAND_NAME} · 🔞 悦动",
-        "yuechan_iptv": f"{BRAND_NAME} · 📺 悦然直播",
+                "yuechan_iptv": f"{BRAND_NAME} · 📺 悦然直播",
         "yuechan_global": f"{BRAND_NAME} · 🌍 悦然全球",
         "iyouhun_zb": f"{BRAND_NAME} · 📡 游魂直播",
         "zbds_ipv4": f"{BRAND_NAME} · 📡 ZBDS直播",
@@ -204,9 +202,7 @@ def main():
         ("suxuang_ipv4", "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u"),
         ("Free-TV", "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"),
         ("Guovin-api", "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"),
-        ("🔞 Adult Elite", "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/main/xxx.m3u8"),
-        ("🔞 XXX Master", "https://gist.github.com/639936/ee108ef4fc3eadcc23c41408fa0d107e"),
-    ]
+            ]
     
     # ===================== Step 1: Test all sources =====================
     results = []
